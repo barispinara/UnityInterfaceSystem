@@ -1,0 +1,885 @@
+﻿<Window x:Class="UnityInterfaceSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dragabalz="clr-namespace:Dragablz;assembly=Dragablz"
+        xmlns:local="clr-namespace:UnityInterfaceSystem"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="800" 
+        Width="1200"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Normal"
+        MouseDown="Window_MouseDown"
+        MinWidth="800"
+        MinHeight="600"
+        ResizeMode="CanResizeWithGrip"
+        >
+    <Window.Resources>
+
+        <!--#region Round Button Style 1-->
+        <Style TargetType="{x:Type Button}" x:Key="RoundButton">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="9" />
+                </Style>
+
+
+            </Style.Resources>
+            <Style.BasedOn>
+                <StaticResource ResourceKey="{x:Type Button}"/>
+            </Style.BasedOn>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region  Round Button Style 2-->
+        <Style TargetType="{x:Type Button}" x:Key="RoundButton2">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="1" />
+                </Style>
+            </Style.Resources>
+            <Style.BasedOn>
+                <StaticResource ResourceKey="{x:Type Button}"/>
+            </Style.BasedOn>
+        </Style>
+        <!--#endregion-->
+
+
+        <!--#region DataGrid Column Header Style-->
+        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource ResourceKey={x:Type DataGridColumnHeader}}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#00ADB5"/>
+            <Setter Property="Margin" Value="0 0 0 10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF6BB8BB"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+
+                <Trigger Property="ClickMode" Value="Hover">
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <!--#endregion-->
+
+    </Window.Resources>
+
+    <!--#region WindowChrome Style-->
+    <Window.Style>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome
+                          ResizeBorderThickness="0"
+                          CaptionHeight="0"
+                          CornerRadius="0"
+                          GlassFrameThickness="0"
+                          />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Style>
+
+    <!--#endregion-->
+
+    <Grid Background="#393E46">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+
+
+        <!--#region Top Bar-->
+        <Grid Grid.ColumnSpan="2"
+              HorizontalAlignment="Stretch"
+              Background="#222831">
+
+            <!--#region Top Bar Right Button Side-->
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                <!--#region Minimize Button-->
+                <Button x:Name="BtnMinimize"
+                        Height="50"
+                        Width="50"
+                        Click="BtnMinimize_Click"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="white"
+                        BorderBrush="Transparent"
+                        MouseEnter="BtnMinimize_MouseEnter"
+                        MouseLeave="BtnMinimize_MouseLeave"
+                        >
+                    <materialDesign:PackIcon Kind="WindowMinimize" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
+                <!--#endregion-->
+
+
+                <!--#region Full Screen Button-->
+                <Button x:Name="BtnFullScreen"
+                        Height="50"
+                        Width="50"
+                        Click="BtnFullScreen_Click"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="White"
+                        BorderBrush="Transparent"
+                        Margin="5,0,0,0"
+                        MouseEnter="BtnFullScreen_MouseEnter"
+                        MouseLeave="BtnFullScreen_MouseLeave"
+                        >
+                    <materialDesign:PackIcon Kind="WindowMaximize" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                </Button>
+                <!--#endregion-->
+
+                <!--#region Close Button-->
+                <Button x:Name="BtnClose"
+                        Height="50"
+                        Width="50"
+                        Click="BtnClose_Click"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="white"
+                        BorderBrush="Transparent"
+                        Margin="5,0,0,0"
+                        MouseEnter="BtnClose_MouseEnter"
+                        MouseLeave="BtnClose_MouseLeave">
+                    <materialDesign:PackIcon Kind="WindowClose" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+
+                </Button>
+
+                <!--#endregion-->
+
+
+
+            </StackPanel>
+            <!--#endregion-->
+
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="20,0,0,0">
+
+                <Label Foreground="White" BorderBrush="#00ADB5" BorderThickness="2" Content="LOGO" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" Height="50" Margin="-10,10,0,0" FontSize="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            </StackPanel>
+
+
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region Side Bar-->
+        <Grid HorizontalAlignment="Stretch" 
+              Grid.Row="1" 
+              Background="#222831">
+            <materialDesign:TransitioningContent  x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+                <Grid x:Name="GridCursor" Margin="0 100 0 0" Background="#00ADB5" Width="10" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top"/>
+            </materialDesign:TransitioningContent>
+            <ListView x:Name="ListViewSideMenu" Margin="0 100" Foreground="LightGray"  FontSize="18" FontFamily="Resources/Font/OpenSans-Regular.ttf" SelectionChanged="ListView_SelectionChanged" SelectedIndex="0">
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Home" Width="40" Height="40" VerticalAlignment="Center" Margin="5" Foreground="white"/>
+                        <TextBlock Text="Home" FontSize="20" VerticalAlignment="Center" Margin="20 0" />
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="MovieOpenStar" Width="40" Height="40" VerticalAlignment="Center" Margin="5" Foreground="white"/>
+                        <TextBlock Text="Scene" FontSize="20" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+
+            </ListView>
+
+
+        </Grid>
+
+        <!--#endregion-->
+
+        <!--#region Home Page-->
+
+        <Grid x:Name="HomePAGE"
+              Grid.Row="2"
+              Grid.Column="2"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              Background="#393E46"
+              Visibility="Hidden"
+              >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" x:Name="Digital_clock_label" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="40" Foreground="White"/>
+            <Label Grid.Row="0" Grid.Column="2" Content="V 1.0.0" VerticalAlignment="Top" HorizontalAlignment="Right" Foreground="White" FontSize="20"/>
+
+        </Grid>
+
+        <!--#endregion-->
+
+
+        <!--#region Side Bar Scene Tab Page-->
+        <Grid x:Name="SceneTabPAGE"
+              Grid.Row="2"
+              Grid.Column="2"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              Background="#393E46"
+              Visibility="Visible">
+
+            <dragabalz:TabablzControl
+                
+                x:Name="TabMENU"
+                Background="#393E46" 
+                BorderBrush="#00ADB5"
+                AllowDrop="True"
+                ConsolidateOrphanedItems="True"
+                 >
+                <dragabalz:TabablzControl.InterTabController>
+                    <dragabalz:InterTabController OverridesDefaultStyle="True" />
+                </dragabalz:TabablzControl.InterTabController>
+
+                <!--#region Scene Page Part-->
+                <TabItem x:Name="SceneTAB"
+                         Header="SCENE"
+                         
+                         >
+                    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+                        <Grid x:Name="SceneGRID">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="*"
+                                               MinHeight="500"/>
+                                <RowDefinition Height="*"
+                                               MinHeight="100"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"
+                                                  MinWidth="550"
+                                                  />
+                                <ColumnDefinition Width="*"
+                                                  MinWidth="300"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--#region Scene TABLE-->
+                            <ScrollViewer HorizontalAlignment="Stretch" 
+                                          HorizontalScrollBarVisibility="Disabled" 
+                                          VerticalScrollBarVisibility="Auto" 
+                                          Grid.Row="1" 
+                                          Grid.Column="1" 
+                                          Background="#34495e"
+                                          PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+                                <StackPanel x:Name="SceneTABLE"
+                                        Background="#222831"
+                                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                        CanVerticallyScroll="True"
+                                        MinHeight="450"
+                                        MinWidth="400" 
+                                        >
+
+                                    <Button x:Name="BtnAddScene"
+                                        Background="#34495e"
+                                        Height="50"
+                                        VerticalAlignment="Top"
+                                        Width="auto"
+                                        BorderThickness="0"
+                                        Click="BtnAddScene_Click">
+                                        <materialDesign:PackIcon Kind="Plus"
+                                                             Grid.Column="0"
+                                                             Foreground="White"
+                                                             Height="auto"
+                                                             Width="Auto"/>
+                                    </Button>
+
+
+
+                                    <ListView x:Name="SceneListView" 
+                                          PreviewMouseLeftButtonUp="SceneListView_PreviewMouseLeftButtonUp"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          HorizontalContentAlignment="Stretch"
+                                          />
+
+
+                                </StackPanel>
+                            </ScrollViewer>
+                            <Grid Grid.Row="2" Grid.Column="1">
+
+                                <!--#region SendUnityBtn-->
+                                <Button x:Name="SendUnityBtn"
+                                        Background="#222831"
+                                        Click="SendUnityBtn_Click"
+                                        MouseEnter="SendUnityBtn_MouseEnter"
+                                        MouseLeave="SendUnityBtn_MouseLeave"
+                                        BorderThickness="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Send" Height="20" Width="20" Foreground="White"/>
+                                        <TextBlock Text="Send To Unity" Foreground="White" FontSize="16" Margin="10 0 0 0"/>
+                                    </StackPanel>
+                                </Button>
+                                <!--#endregion-->
+                            </Grid>
+                            <!--#endregion-->
+
+
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="5"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"
+                                                      MinWidth="250"/>
+                                    <ColumnDefinition Width="*"
+                                                      MinWidth="250"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                                    <!--#region SceneSaveBtn -->
+                                    <Button x:Name="SceneSaveBtn"
+                                        Background="#222831"
+                                        Click="SceneSaveBtn_Click"
+                                        BorderThickness="0"
+                                        ToolTip="Save Current Scene"
+                                        VerticalContentAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="ContentSave" Height="25" Width="25" Foreground="White" Margin="0 -3 0 0"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!--#endregion-->
+
+                                    <TextBox x:Name="SceneSaveBar"
+                                             Background="#2c3e50"
+                                             Foreground="White"
+                                             FontSize="16"
+                                             VerticalContentAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             FontStyle="Italic"
+                                             Text="Give name to scene"
+                                             MinHeight="50"
+                                             Margin="20 0 0 0"
+                                             MinWidth="200"
+                                             />
+                                </StackPanel>
+                                <Button x:Name="ClearSceneListBtn"
+                                        Background="#222831"
+                                        Click="ClearSceneListBtn_Click"
+                                        BorderThickness="0"
+                                        Grid.Column="1"
+                                        Grid.Row="1"
+                                        ToolTip="Clear Table"
+                                        VerticalContentAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        >
+                                    <materialDesign:PackIcon Kind="Refresh" Foreground="White" Height="25" Width="25"  Margin="0 -3 0 0"/>
+
+                                </Button>
+
+
+
+                            </Grid>
+
+                            <!--#endregion-->
+                            <!--#region Scene Table Button GRID-->
+                            <Grid x:Name="SceneButtonsGRID"
+                                  Grid.Column="2"
+                                  Grid.Row="1"
+                                  Margin="50 0 0 0"
+                                  >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"
+                                                   MinHeight="25"
+                                                   MaxHeight="50"/>
+                                    <RowDefinition Height="*"
+                                                   MinHeight="400"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"
+                                                      MinWidth="50"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="*"
+                                                      MinWidth="50"/>
+                                    <ColumnDefinition 
+                                                      Width="10"/>
+                                </Grid.ColumnDefinitions>
+
+
+
+                                <!--#region SearchBAR Side-->
+
+                                <Grid x:Name="SceneSearchGRID"
+                                      Grid.Row="0"
+                                      Grid.ColumnSpan="3"
+                                      >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="190"
+                                                          Width="*"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition MinWidth="25"
+                                                          MaxWidth="50"
+                                                          Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox x:Name="SceneSearchBAR"
+                                             Background="#2c3e50"
+                                             Foreground="White"
+                                             FontSize="16"
+                                             VerticalContentAlignment="Center"
+                                             Grid.Column="0"
+                                             FontStyle="Italic"
+                                             Text="Search Saved Scene"
+                                             MaxHeight="40"/>
+                                    <Button x:Name="SceneSearchBtn"
+                                            Background="#222831"
+                                            Click="SceneSearchBtn_Click"
+                                            VerticalContentAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            Grid.Column="2"
+                                            BorderThickness="0"
+                                            MinHeight="40"
+                                            >
+                                        <materialDesign:PackIcon Kind="Search" MinHeight="20" MinWidth="20"/>
+                                    </Button>
+
+                                </Grid>
+                                <!--#endregion-->
+
+                                <Grid Grid.Row="1" Grid.ColumnSpan="3" Background="Black">
+                                    <ScrollViewer HorizontalAlignment="Stretch" 
+                                          HorizontalScrollBarVisibility="Disabled" 
+                                          VerticalScrollBarVisibility="Auto" 
+                                          Grid.Row="1" 
+                                          Grid.Column="1" 
+                                          Background="#34495e"
+                                          PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+
+                                        <ListView x:Name="SceneSavedListView" 
+                                                  PreviewMouseLeftButtonUp="SceneListView_PreviewMouseLeftButtonUp"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                  HorizontalContentAlignment="Stretch"
+                                          />
+
+                                    </ScrollViewer>
+                                </Grid>
+
+                            </Grid>
+                            <!--#endregion-->
+                        </Grid>
+                    </materialDesign:TransitioningContent>
+
+
+                </TabItem>
+                <!--#region  Model Page-->
+                <TabItem x:Name="ModelTAB"
+                         Header="MODEL">
+
+                    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+                        <Grid x:Name="ModelGRID" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"
+                                                  MinWidth="550"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="*"
+                                               MinHeight="200"
+                                               />
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="*"
+                                               MinHeight="450"/>
+                                <RowDefinition Height="20"/>
+
+                            </Grid.RowDefinitions>
+
+                            <!--#region Model Table Part-->
+                            <Grid Grid.Column="1"
+                                  Grid.Row="1"
+                                  Background="Transparent"
+                                  >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"
+                                                   MinHeight="40"
+                                                   MaxHeight="50"/>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="*"
+                                                   MinHeight="150"/>
+                                </Grid.RowDefinitions>
+                                <!--#region Model Table Top Button And Search Side-->
+                                <StackPanel x:Name="ModelTableButtonPanel"
+                                            Grid.Row="0"
+                                            Orientation="Horizontal"
+                                            MinWidth="150">
+                                    <Button x:Name="ModelTableAddBtn"
+                                            Style="{DynamicResource RoundButton}"
+                                            BorderThickness="0"
+                                            Background="#00ADB5"
+                                            Click="ModelTableAddBtn_Click"
+                                            VerticalAlignment="Top"
+                                            Margin="10 10 0 0"
+                                            MinWidth="150"
+                                            MinHeight="30">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="FileDocument" Height="20" Width="20" Foreground="White"/>
+                                            <TextBlock Text="Add Model" FontSize="15" Foreground="white" Margin="10 0 0 0"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <TextBox x:Name="ModelTableSearchBAR"
+                                             Background="#222831"
+                                             Foreground="White"
+                                             CaretBrush="#00ADB5"
+                                             SelectionBrush="#00ADB5"
+                                             FontSize="16"
+                                             VerticalContentAlignment="Center"
+                                             FontStyle="Italic"
+                                             Text="Search Model"
+                                             VerticalAlignment="Top"
+                                             Margin="10 10 0 0"
+                                             MinWidth="250"
+                                             MinHeight="32"
+                                             
+                                             />
+                                    <Button x:Name="ModelTableSearchBarBtn"
+                                            Style="{StaticResource RoundButton2}"
+                                            Background="#222831"
+                                            Click="ModelTableSearchBtn_Click"
+                                            VerticalContentAlignment="Center"
+                                            BorderThickness="0"
+                                            VerticalAlignment="Top"
+                                            Margin="5 10 0 0"
+                                            MinHeight="30"
+                                            MinWidth="50"
+                                           >
+                                        <materialDesign:PackIcon Kind="Search" MinHeight="20" MinWidth="20" Foreground="White"/>
+                                    </Button>
+
+
+                                </StackPanel>
+                                <!--#endregion-->
+                                <StackPanel x:Name="ModelListViewPanel"
+                                            Grid.Row="2"
+                                            Background="#222831"
+                                            >
+                                    <ListView x:Name="ModelListView"
+                                          HorizontalContentAlignment="Stretch"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          Foreground="white">
+
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListViewItem}">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Setter Property="BorderThickness" Value="0" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="BorderThickness" Value="0"/>
+                                                    </Trigger>
+
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+
+                                    </ListView>
+                                </StackPanel>
+
+                            </Grid>
+                            <!--#endregion-->
+
+                            <!--#endregion-->
+
+                            <!--#region Piece Table Part-->
+                            <Grid x:Name="PieceTableGrid"
+                                  Grid.Column="1"
+                                  Grid.Row="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"
+                                                   MinHeight="40"
+                                                   MaxHeight="50"/>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="*"
+                                                   MinHeight="300"/>
+                                </Grid.RowDefinitions>
+
+                                <!--#region Piece Table Button Part-->
+                                <StackPanel x:Name="PieceTableButtonPanel"
+                                            Grid.Row="0"
+                                            Orientation="Horizontal"
+                                            MinWidth="150"
+                                            Grid.Column="0">
+                                    <!--#endregion-->
+
+                                    <!--#endregion-->
+
+                                    <!--#region PieceTableAddBtn-->
+                                    <Button x:Name="PieceTableAddBtn"
+                                            Style="{DynamicResource RoundButton}"
+                                            BorderThickness="0"
+                                            Background="#00ADB5"
+                                            Click="PieceTableAddBtn_Click"
+                                            VerticalAlignment="Top"
+                                            Margin="10 10 0 0"
+                                            MinWidth="150"
+                                            MinHeight="30">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="LayersTripleOutline" Height="20" Width="20" Foreground="White"/>
+                                            <TextBlock Text="Add Piece" FontSize="15" Foreground="White" Margin="10 0 0 0"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!--#region PieceTableSearch Part-->
+                                    <TextBox x:Name="PieceTableSearchBAR"
+                                             Background="#222831"
+                                             Foreground="White"
+                                             CaretBrush="#00ADB5"
+                                             SelectionBrush="#00ADB5"
+                                             FontSize="16"
+                                             VerticalContentAlignment="Center"
+                                             FontStyle="Italic"
+                                             Text="Search Piece"
+                                             VerticalAlignment="Top"
+                                             Margin="10 10 0 0"
+                                             MinWidth="250"
+                                             MinHeight="32"/>
+
+                                    <Button x:Name="PieceTableSearchBarBtn"
+                                            Style="{StaticResource RoundButton2}"
+                                            Background="#222831"
+                                            Click="PieceTableSearchBarBtn_Click"
+                                            VerticalContentAlignment="Center"
+                                            BorderThickness="0"
+                                            VerticalAlignment="Top"
+                                            Margin="5 10 0 0"
+                                            MinHeight="30"
+                                            MinWidth="50">
+                                        <materialDesign:PackIcon Kind="Search" MinHeight="20" MinWidth="20" Foreground="White"/>
+                                    </Button>
+                                    <Button x:Name="SubTaskBtn"
+                                            Style="{StaticResource RoundButton2}"
+                                            Background="#222831"
+                                            Click="SubTaskBtn_Click"
+                                            VerticalContentAlignment="Center"
+                                            BorderThickness="1"
+                                            BorderBrush="#00ADB5"
+                                            VerticalAlignment="Top"
+                                            Margin="300 10 0 0"
+                                            MinHeight="30"
+                                            MinWidth="100"
+                                            Visibility="Hidden">
+                                        <TextBlock Text="Add to subtask" Foreground="white" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Button>
+
+                                </StackPanel>
+                                <!--#endregion-->
+
+                                <DataGrid x:Name="PieceTable"
+                                          Grid.Row="2"
+                                          
+                                          Background="#222831" 
+                                          Foreground="White"
+                                          CanUserSortColumns="False"
+                                          IsReadOnly="True"
+                                          ItemsSource="{Binding}"
+                                          AutoGenerateColumns="False"
+                                          HorizontalContentAlignment="Center"
+                                          HorizontalScrollBarVisibility="Disabled" 
+                                          GridLinesVisibility="Vertical"
+                                          EnableColumnVirtualization="true"
+                                          EnableRowVirtualization="True"
+                                          ScrollViewer.CanContentScroll="True"
+                                          
+                                          >
+
+                                    <!--#region Piece Table Column Kısmı-->
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn MinWidth="15" Width="*" Header="ID" Binding="{Binding ID}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn MinWidth="50" Width="2*" Header="Piece" Binding="{Binding Name}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn MinWidth="50" Width="2*" Header="Model" Binding="{Binding Model}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn MinWidth="40" Width="*" Header="First Frame" Binding="{Binding Start}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn MinWidth="40" Width="*" Header="Last Frame" Binding="{Binding Finish}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTemplateColumn MinWidth="30" Width="*" Header="Delete" MaxWidth="90">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="PieceTableDeleteBtn"
+                                                            Background="#222831"
+                                                            BorderThickness="0"
+                                                            Tag="{Binding Name}"
+                                                            Style="{DynamicResource RoundButton}"
+                                                            ToolTip="Delete Piece"
+                                                            MinWidth="30"
+                                                            MaxWidth="90">
+                                                        <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" Foreground="white" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn MinWidth="30" Width="*" Header="Info" MaxWidth="90">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="PieceTableInfoBtn"
+                                                            Background="#222831"
+                                                            Click="PieceTableInfoBtn_Click"
+                                                            BorderThickness="0"
+                                                            Tag="{Binding Name}"
+                                                            Style="{DynamicResource RoundButton}"
+                                                            ToolTip="All Information About Piece"
+                                                            MinWidth="30"
+                                                            MaxWidth="90">
+                                                        <materialDesign:PackIcon Kind="InformationVariant" Width="25" Height="25" Foreground="white" VerticalAlignment="center" HorizontalAlignment="Center"/>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                    <!--#endregion-->
+
+                                    <!--#region Piece Table Row Style-->
+                                    <DataGrid.RowStyle>
+                                        <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource ResourceKey={x:Type DataGridRow}}">
+                                            <Setter Property="BorderThickness" Value="1" />
+                                            <Setter Property="BorderBrush" Value="Transparent" />
+                                            <Setter Property="Background" Value="#393E46"/>
+                                            <Setter Property="Foreground" Value="white"/>
+                                            <Setter Property="Margin" Value="0 10 0 0"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type DataGridRow}">
+                                                        <Border x:Name="DGR_Border" BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                                                Background="{TemplateBinding Background}" 
+                                                                SnapsToDevicePixels="True"
+                                                                CornerRadius="5"
+                                                                >
+
+                                                            <SelectiveScrollingGrid >
+                                                                <SelectiveScrollingGrid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                    <ColumnDefinition Width="*"/>
+                                                                </SelectiveScrollingGrid.ColumnDefinitions>
+                                                                <SelectiveScrollingGrid.RowDefinitions>
+                                                                    <RowDefinition Height="*"/>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                </SelectiveScrollingGrid.RowDefinitions>
+                                                                <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                                                <DataGridDetailsPresenter Grid.Column="1"   Grid.Row="1" SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Visibility="{TemplateBinding DetailsVisibility}"/>
+                                                                <DataGridRowHeader Grid.RowSpan="2"  SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                                            </SelectiveScrollingGrid>
+                                                        </Border>
+
+
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#FF4F5257"/>
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="#76AAAC"/>
+                                                </Trigger>
+
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.RowStyle>
+                                    <!--#endregion-->
+
+                                    <!--#region Piece Table Cell Style-->
+                                    <DataGrid.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ResourceKey={x:Type DataGridCell}}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="#76AAAC"/>
+
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.CellStyle>
+                                    <!--#endregion-->
+
+
+
+
+                                </DataGrid>
+
+                            </Grid>
+
+                        </Grid>
+                    </materialDesign:TransitioningContent>
+
+
+                </TabItem>
+            </dragabalz:TabablzControl>
+
+
+        </Grid>
+
+
+
+    </Grid>
+
+
+</Window>
