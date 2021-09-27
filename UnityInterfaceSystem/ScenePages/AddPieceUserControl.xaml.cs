@@ -178,8 +178,9 @@ namespace UnityInterfaceSystem.ScenePages
         {
             TextBox coming_text = sender as TextBox;
 
-            if (piece_list.Find(PieceEntity => PieceEntity.Name == coming_text.Text.ToString()) != null)
+            if (piece_list.Any(PieceEntity => PieceEntity.Name == coming_text.Text.ToString()))
             {
+                
                 PieceNameWarning.Visibility = Visibility.Visible;
             }
             else
